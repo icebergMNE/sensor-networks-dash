@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - node_modules
+script:
+  - npm test
+  - npm run build
+  - cp build/index.html build/200.html
+# after_script:
+# - ls
+# - cp ~/home/travis/build/index.html ~/home/travis/build/200.html
+# - cp build/index.html build/200.html
+# - cd build && ls
+
+deploy:
+  provider: surge
+  skip_cleanup: true
+  domain: sh-sensor-networks.surge.sh
+  project: ./build/
+on:
+  branch: master
